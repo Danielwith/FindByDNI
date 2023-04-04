@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+.animate {
+  animation: trasladar 3.5s;
+  visibility: visible !important;
+}
+
+.container {
+  overflow: hidden;
+}
+
+@keyframes trasladar {
+  0% {
+    opacity: 0;
+    transform: translateX(50vw);
+  }
+  50% {
+    opacity: 0.25;
+    transform: translateX(-5vw);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0vw);
+  }
+}

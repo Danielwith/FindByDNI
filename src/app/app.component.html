@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="ms-auto me-auto mt-5 w-50 h-50 text-bg-warning border border-dark border-3 rounded-3 shadow-lg">
+    <h1 class="text-center">Consulta DNI</h1>
+    <main class="bg-light p-5">
+      <div aria-live="polite" toastContainer></div>
+      <form (ngSubmit)="consultar(DNI)">
+        <div class="form-group mb-3">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control" placeholder="" [value]="nombre" disabled>
+        </div>
+        <div class="form-group mb-3">
+          <label for="dni">DNI</label>
+          <input type="text" class="form-control" name="dni" #DNI="ngModel" [(ngModel)]="dni"
+            [ngClass]="{'is-invalid':DNI.errors && DNI.touched}" required pattern="[0-9]{8}"
+            placeholder=" Inserte su DNI" (keypress)="onlyNumbers($event)">
+          <div [hidden]="!DNI.errors?.['required']" class="invalid-feedback">DNI requerido</div>
+          <div [hidden]="!DNI.errors?.['pattern']" class="invalid-feedback">Debe contener 8
+            caracteres.
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="fec">Fecha de Nacimiento</label>
+            <input type="date" class="form-control" name="fec" #FEC="ngModel" [(ngModel)]="fec_nac"
+              [ngClass]="{'is-invalid':FEC.errors && FEC.touched}" validateDateOfBirth>
+            <div [hidden]="FEC.errors?.['validateDateOfBirth']" class="invalid-feedback">Fecha de nacimiento invalida.
+            </div>
+          </div>
+          <div class="col mt-lg-0 mt-md-3 mt-sm-3">
+            <label for="tel">Teléfono</label>
+            <input type="number" class="form-control" name="tel" #TEL="ngModel" [(ngModel)]="telef"
+              [ngClass]="{'is-invalid':TEL.errors && TEL.touched}" pattern="[0-9]{7,10}"
+              (keypress)="onlyNumbers($event)">
+            <div [hidden]="!TEL.errors?.['pattern']" class="invalid-feedback">Número invalido.
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+<div class="card w-25 position-absolute" style="right: 0; top:10rem; visibility: hidden;">
+  <div class="card-body" [ngClass]="matricula ? 'bg-success' : 'bg-danger'" style="transition: 0.5s">
+    <h3 class="card-title">Puedo matricularme?</h3>
+    <h6 class="card-text">{{matricula ? 'Claro!' : 'Por el momento, no.'}}
+    </h6>
+  </div>
+</div>
